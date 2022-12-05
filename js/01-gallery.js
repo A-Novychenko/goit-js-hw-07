@@ -1,8 +1,5 @@
 import {galleryItems} from "./gallery-items.js";
 
-// Файл gallery-items.js містить масив galleryItems, який містить об'єкти з інформацією про зображення: маленьке (прев`ю),
-// оригінальне(велике) і опис.Ми вже підключили його до кожного з JS - файлів проекту.
-
 // Завдання 1 - галерея зображень
 // Створи галерею з можливістю кліку по її елементах і перегляду повнорозмірного зображення у модальному вікні. Подивися демо відео роботи галереї.
 
@@ -39,12 +36,14 @@ import {galleryItems} from "./gallery-items.js";
 // доки відкрите модальне вікно.Бібліотека basicLightbox містить метод для програмного закриття модального вікна.
 // Change code below this line
 
-console.log(galleryItems);
+// console.log(galleryItems);
 
 const galleryContainer = document.querySelector(".gallery");
 const galleryCardsMarkup = createGalleryCardsMarkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML("beforeend", galleryCardsMarkup);
+
+galleryContainer.addEventListener("click", onGalleryContainerClick);
 
 function createGalleryCardsMarkup(galleryItems) {
   return galleryItems
@@ -62,4 +61,13 @@ function createGalleryCardsMarkup(galleryItems) {
     `;
     })
     .join();
+}
+
+function onGalleryContainerClick(e) {
+  if (!e.target.classList.contains("gallery__image")) {
+    return;
+  }
+
+  e.preventDefault();
+  console.log("По каких элементах нужно отловить клики?");
 }
