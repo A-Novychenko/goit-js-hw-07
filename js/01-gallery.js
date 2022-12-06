@@ -50,29 +50,79 @@ function createGalleryCardsMarkup(galleryItems) {
     .join();
 }
 
+const instanceRef = crModal();
+
 function onGalleryContainerClick(e) {
   if (e.target.nodeName !== "IMG") {
     return;
   }
 
-  const instance = basicLightbox.create(
-    `<img src="${e.target.dataset.source}" width="800" height="600">`
-  );
-  const keypressCallback = onCloseModalKeypress.bind(instance);
-  window.addEventListener("keydown", keypressCallback);
+  const source = e.target.dataset.source;
+
+  window.addEventListener("keydown", onCloseModalKeypress);
 
   e.preventDefault();
+
+  const instance = crModal(source);
   instance.show();
+}
+
+function crModal(source) {
+  const instance = basicLightbox.create(
+    `<img src="${source}" width="800" height="600">`
+  );
+
+  return instance;
+}
+
+function closeModal() {
+  console.log(instanceRef.close());
+  return instanceRef.close();
 }
 
 function onCloseModalKeypress(e) {
   if (e.code === "Escape") {
-    // window.removeEventListener("keydown", onCloseModalKeypress.bind());
+    window.removeEventListener("keydown", onCloseModalKeypress);
     console.log("esc");
-    e.target.close(() =>
-      window.removeEventListener("keydown", keypressCallback)
-    );
+    console.log("closeModal", closeModal());
+    closeModal();
+    // instance.close();
     return;
   }
   console.log("no esc");
 }
+
+//
+///
+///
+//
+//
+//
+//
+//
+//
+
+// function onGalleryContainerClick(e) {
+//   if (e.target.nodeName !== "IMG") {
+//     return;
+//   }
+
+//   const instance = basicLightbox.create(
+//     `<img src="${e.target.dataset.source}" width="800" height="600">`
+//   );
+
+//   window.addEventListener("keydown", onCloseModalKeypress);
+
+//   e.preventDefault();
+//   instance.show();
+
+//   function onCloseModalKeypress(e) {
+//     if (e.code === "Escape") {
+//       window.removeEventListener("keydown", onCloseModalKeypress);
+//       console.log("esc");
+//       instance.close();
+//       return;
+//     }
+//     console.log("no esc");
+//   }
+// }
