@@ -15,17 +15,6 @@ import {galleryItems} from "./gallery-items.js";
 // Посилання на оригінальне зображення повинно зберігатися в data-атрибуті source на елементі <img>, і вказуватися в href посилання.
 // Не додавай інші HTML теги або CSS класи, крім тих, що містяться в цьому шаблоні.
 
-/* <div class="gallery__item">
-  <a class="gallery__link" href="large-image.jpg">
-    <img
-      class="gallery__image"
-      src="small-image.jpg"
-      data-source="large-image.jpg"
-      alt="Image description"
-    />
-  </a>
-</div> */
-
 // Зверни увагу на те, що зображення обгорнуте посиланням, отже по кліку за замовчуванням користувач буде перенаправлений на іншу сторінку. Заборони цю поведінку за замовчуванням.
 
 // Закриття з клавіатури
@@ -64,10 +53,12 @@ function createGalleryCardsMarkup(galleryItems) {
 }
 
 function onGalleryContainerClick(e) {
-  if (!e.target.classList.contains("gallery__image")) {
+  if (e.target.nodeName !== "IMG") {
     return;
   }
 
   e.preventDefault();
   console.log("По каких элементах нужно отловить клики?");
+  console.log(e.target.src);
+  console.log((e.target.src = e.target.dataset.source));
 }
