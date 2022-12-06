@@ -50,20 +50,17 @@ function createGalleryCardsMarkup(galleryItems) {
     .join();
 }
 
-const instanceRef = crModal();
-
 function onGalleryContainerClick(e) {
   if (e.target.nodeName !== "IMG") {
     return;
   }
 
   const source = e.target.dataset.source;
+  const instance = crModal(source);
 
-  window.addEventListener("keydown", onCloseModalKeypress);
+  window.addEventListener("keydown", onCloseModalKeypress.call(instance));
 
   e.preventDefault();
-
-  const instance = crModal(source);
   instance.show();
 }
 
@@ -75,18 +72,12 @@ function crModal(source) {
   return instance;
 }
 
-function closeModal() {
-  console.log(instanceRef.close());
-  return instanceRef.close();
-}
-
 function onCloseModalKeypress(e) {
   if (e.code === "Escape") {
     window.removeEventListener("keydown", onCloseModalKeypress);
+
     console.log("esc");
-    console.log("closeModal", closeModal());
-    closeModal();
-    // instance.close();
+    this.close();
     return;
   }
   console.log("no esc");
