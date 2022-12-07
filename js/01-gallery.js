@@ -35,12 +35,12 @@ function onGalleryContainerClick(e) {
     `<img src="${e.target.dataset.source}" width="800" height="600">`,
     {
       onClose: () => {
-        window.removeEventListener("keydown", onCloseModalKeypress);
+        document.removeEventListener("keydown", onCloseModalKeypress);
       },
     }
   );
 
-  window.addEventListener("keydown", onCloseModalKeypress);
+  document.addEventListener("keydown", onCloseModalKeypress);
 
   e.preventDefault();
   instance.show();
