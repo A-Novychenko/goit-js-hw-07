@@ -32,7 +32,12 @@ function onGalleryContainerClick(e) {
   }
 
   const instance = basicLightbox.create(
-    `<img src="${e.target.dataset.source}" width="800" height="600">`
+    `<img src="${e.target.dataset.source}" width="800" height="600">`,
+    {
+      onClose: () => {
+        window.removeEventListener("keydown", onCloseModalKeypress);
+      },
+    }
   );
 
   window.addEventListener("keydown", onCloseModalKeypress);
@@ -45,7 +50,6 @@ function onGalleryContainerClick(e) {
       return;
     }
 
-    window.removeEventListener("keydown", onCloseModalKeypress);
     instance.close();
   }
 }
