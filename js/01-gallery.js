@@ -56,33 +56,43 @@ function onGalleryContainerClick(e) {
   }
 
   const source = e.target.dataset.source;
-  const instance = crModal(source);
 
-  window.addEventListener("keydown", onCloseModalKeypress.call(instance));
+  window.addEventListener("keydown", onCloseModalKeypress);
 
   e.preventDefault();
-  instance.show();
+  // instance.show();
+  controlModal(source);
 }
+
+const controlModal = crModal;
 
 function crModal(source) {
   const instance = basicLightbox.create(
     `<img src="${source}" width="800" height="600">`
   );
 
-  return instance;
+  showModal();
+
+  function showModal() {
+    instance.show();
+  }
+  function closeModal() {
+    instance.close();
+  }
+
+  return crModal;
 }
 
 function onCloseModalKeypress(e) {
   if (e.code === "Escape") {
     window.removeEventListener("keydown", onCloseModalKeypress);
-
     console.log("esc");
-    this.close();
+    // this.close();
+    closeModal();
     return;
   }
   console.log("no esc");
 }
-
 //
 ///
 ///
