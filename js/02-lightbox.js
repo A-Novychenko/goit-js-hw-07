@@ -26,16 +26,28 @@ galleryContainer.insertAdjacentHTML("beforeend", galleryCardsMarkup);
 
 galleryContainer.addEventListener("click", onGalleryContainerClick);
 
+// function createGalleryCardsMarkup(galleryItems) {
+//   return galleryItems
+//     .map(({preview, original, description}) => {
+//       return ` <a class="gallery__item" href="${original}">
+//                   <img
+//                        class="gallery__image"
+//                        src="${preview}"
+//                        alt="${description}"
+//                    />
+//                 </a>`;
+//     })
+//     .join();
+// }
+
 function createGalleryCardsMarkup(galleryItems) {
-  return galleryItems
-    .map(({preview, original, description}) => {
-      return ` <a class="gallery__item" href="${original}">
+  return galleryItems.reduce((acc, {preview, original, description}) => {
+    return (acc += ` <a class="gallery__item" href="${original}">
                   <img
                        class="gallery__image"
                        src="${preview}"
                        alt="${description}"
                    />
-                </a>`;
-    })
-    .join();
+                </a>`);
+  }, "");
 }
